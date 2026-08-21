@@ -2,6 +2,8 @@ import { defineStore } from "pinia"
 import { ref } from "vue"
 import { useAuthStore } from "./auth"
 import { useUserStore } from "./user"
+import { useCustomerStore } from "./customer"
+import { usePriceStore } from "./price"
 
 export const useAppStore = defineStore('app', () => {
   const ready = ref(false)
@@ -9,6 +11,8 @@ export const useAppStore = defineStore('app', () => {
   async function bootstrap() {
     const auth = useAuthStore()
     const user = useUserStore()
+    const price = usePriceStore()
+    const customer = useCustomerStore()
 
     auth.restore()
 
@@ -22,6 +26,9 @@ export const useAppStore = defineStore('app', () => {
     } catch {
       await auth.logout()
     }
+
+    await price.load()
+    await customer.load()
 
     ready.value = true
   }
