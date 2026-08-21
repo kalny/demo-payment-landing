@@ -2,13 +2,13 @@
 import { onMounted } from 'vue'
 import { usePaddle } from '@/composables/usePaddle'
 import { useUserStore } from '@/stores/user'
-
-const starterPriceId = 'pri_01m00ph3d17xrrjg6175vfd4wg'
-const proPriceId = 'pri_01m00phy489yqtb65wetdg7843'
+import { usePriceStore } from '@/stores/price'
+import Price from '@/components/Price.vue'
 
 const { initialize } = usePaddle()
 
 const userStore = useUserStore()
+const priceStore = usePriceStore()
 
 onMounted(async () => {
   await initialize()
@@ -46,22 +46,9 @@ async function checkout(priceId: string) {
   <div>
     <h1>Pricing</h1>
 
-    <div>
-      <h2>Starter</h2>
-      <p>$9 / month</p>
-
-      <button @click="checkout(starterPriceId)">
-        Subscribe
-      </button>
-    </div>
-
-    <div>
-      <h2>Pro</h2>
-      <p>$19 / month</p>
-
-      <button @click="checkout(proPriceId)">
-        Subscribe
-      </button>
-    </div>
+    <Price v-for="price in priceStore.prices" 
+      @checkout="checkout"
+      :price="price" 
+    />
   </div>
 </template>

@@ -6,6 +6,7 @@ export type PriceInterval = 'day'
   | 'year'
 
 export interface Price {
+  id: string
   code: string
   name: string
   description: string
