@@ -7,6 +7,8 @@ import vue3GoogleLogin from 'vue3-google-login'
 import { useAppStore } from './stores/app.ts'
 import { registerApiInterceptors } from './api/interceptors.ts'
 
+import '@/assets/main.css'
+
 const app = createApp(App)
 
 app.use(createPinia())

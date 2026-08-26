@@ -43,12 +43,20 @@ async function checkout(priceId: string) {
 </script>
 
 <template>
-  <div>
-    <h1>Pricing</h1>
+  <div class="p-4 flex flex-col gap-6">
+    <h1 class="text-4xl font-bold text-sky-600">Paddle Payment Demo</h1>
 
-    <Price v-for="price in priceStore.prices" 
-      @checkout="checkout"
-      :price="price" 
-    />
+    <div class="border-1 border-gray-300 rounded-xl p-6 flex flex-col gap-6">
+      <h2 class="text-2xl font-bold text-sky-600">Pricing</h2>
+      <div class="flex flex-col md:flex-row gap-4 w-full">
+        <div class="w-full" v-for="price in priceStore.prices">
+          <Price 
+            @checkout="checkout"
+            :price="price" 
+          />
+        </div>
+      </div>
+    </div>
+    
   </div>
 </template>
