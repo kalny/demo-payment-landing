@@ -4,6 +4,7 @@ import { useAuthStore } from "./auth"
 import { useUserStore } from "./user"
 import { useCustomerStore } from "./customer"
 import { usePriceStore } from "./price"
+import { websocket } from "@/lib/websocket"
 
 export const useAppStore = defineStore('app', () => {
   const ready = ref(false)
@@ -29,6 +30,10 @@ export const useAppStore = defineStore('app', () => {
 
     await price.load()
     await customer.load()
+
+    if (auth.token) {
+      websocket.connect(auth.token)
+    }
 
     ready.value = true
   }
