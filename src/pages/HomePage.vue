@@ -4,11 +4,14 @@ import { usePaddle } from '@/composables/usePaddle'
 import { useUserStore } from '@/stores/user'
 import { usePriceStore } from '@/stores/price'
 import Price from '@/components/Price.vue'
+import { useCustomerStore } from '@/stores/customer'
+import Customer from '@/components/Customer.vue'
 
 const { initialize } = usePaddle()
 
 const userStore = useUserStore()
 const priceStore = usePriceStore()
+const customerStore = useCustomerStore()
 
 onMounted(async () => {
   await initialize()
@@ -56,6 +59,14 @@ async function checkout(priceId: string) {
           />
         </div>
       </div>
+    </div>
+
+    <div class="border-1 border-gray-300 rounded-xl p-6 flex flex-col gap-6">
+      <h2 class="text-2xl font-bold text-sky-600">Customers</h2>
+      <Customer 
+        v-for="customer in customerStore.customers" 
+        :customer="customer" 
+      />
     </div>
     
   </div>
